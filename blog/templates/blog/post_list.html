@@ -1,109 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Compass Game</title>
-        <style>
-            .wrapper {
-                display:grid;
-                grid-template-columns: repeat(3,1fr);
-                grid-gap: 10px;
-                max-width: 250px;
-                grid-auto-rows: minmax(80px,auto);
-            }
-            .item {
-                align-self: center;
-                justify-self: center;
-            }
-            .direction{
-                color: red;
-                font-size: 2em;
-                font-weight: bold;
-            }
-            .arrow{
-                color: blue;
-                font-weight: bold;
-                font-size: 1.3em;
-                width: 2.2em;
-                height: 2.2em;
-                padding:0;
-            }
-        </style>
-        <script>
-            function switchtopleft() {
-                var top, left;
-                top = document.getElementById("top");
-                left = document.getElementById("left");
-                var temp = top.innerHTML;
-                top.innerHTML = left.innerHTML;
-                left.innerHTML = temp;
-            }
-            function switchleftright() {
-                var left, right;
-                right = document.getElementById("right");
-                left = document.getElementById("left");
-                var temp = left.innerHTML;
-                left.innerHTML = right.innerHTML;
-                right.innerHTML = temp;
-            }
-            function switchrightbottom() {
-                var right, bottom;
-                right = document.getElementById("right");
-                bottom = document.getElementById("bottom");
-                var temp = right.innerHTML;
-                right.innerHTML = bottom.innerHTML;
-                bottom.innerHTML = temp;
-            }
-            function restart() {
-                var top, right, left, bottom;
-                right = document.getElementById("right");
-                bottom = document.getElementById("bottom");
-                top = document.getElementById("top");
-                left = document.getElementById("left");
-                top.innerHTML = "E"; left.innerHTML = "S"; bottom.innerHTML = "N"; right.innerHTML = "W";
-            }
-            function update() {
-                var top, right, left, bottom;
-                right = document.getElementById("right");
-                bottom = document.getElementById("bottom");
-                top = document.getElementById("top");
-                left = document.getElementById("left");
-                right1 = document.getElementById("right1");
-                bottom1 = document.getElementById("bottom1");
-                top1 = document.getElementById("top1");
-                left1 = document.getElementById("left1");
-
-                top.innerHTML = top1.value;
-                right.innerHTML = right1.value;
-                bottom.innerHTML = bottom1.value;
-                left.innerHTML = left1.value;
-            }
-        </script>
+        <title>Django Girls blog</title>
     </head>
     <body>
-        <h1>Compass Game</h1>
-        <p>The direction letters on the "compass" are scrambled.
-            Press the arrow to properly position the direction letters.</p>
-        <div class="wrapper">
-            <div class="item"> <input class="arrow" style="transform: rotate(-45deg);"
-                type="button" value="⟷" onclick="switchtopleft();"> </div>
-            <div class="item direction"> <span id="top">E</span> </div>
-            <div class="item"></div>
-            <div class="item direction"> <span id="left">S</span> </div>
-            <div class="item"> <input class="arrow" type="button" value="⟷" 
-                onclick="switchleftright();"> </div>
-            <div class="item direction"> <span id="right">W</span> </div>
-            <div class="item"></div>
-            <div class="item direction"> <span id="bottom">N</span> </div>
-            <div class="item"> <input class="arrow" value="⟷" onclick="switchrightbottom();"
-                style="transform: rotate(-45deg);" type="button"> </div>
-        </div>
-        <p>To restart the game, press <i>Restart</i>, enter N, S, E, and W in any order
-        in the boxes below, and then press <i>Update.</i> </p>
-        <input type="button" value="Restart" onclick="restart();"> <br> <br>
-        Top: <input type="text" id="top1">
-        Left: <input type="text" id="left1">
-        Right: <input type="text" id="right1">
-        Bottom: <input type="text" id="bottom1"> <br> <br>
-        <input type="button" value="Update" onclick="update();">
+        <header>
+            <h1><a href="/">Django Girls Blog</a></h1>
+        </header>
+        {% for post in posts %}
+            <article>
+                <time>published: {{ post.published_date }}</time>
+                <h2><a href="">{{ post.title }}</a></h2>
+                <p>{{post.text|linebreaksbr }}</p>
+            </article>
+        {% endfor %}
     </body>
 </html>
